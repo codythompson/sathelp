@@ -10,9 +10,16 @@ var orbitalPeriod = function (orbitalAltitude, planetRadius, accelAtSeaLevel) {
 };
 
 var orbitalAltitude = function (orbitalPeriod, planetRadius, accelAtSeaLevel) {
-  // TODO
-  throw "TODO not implemented";
+  // this formula was created by entering
+  // solve t=2Pi((r+h)/(r(g/(r+h))^(1/2))) for h
+  // into wolfram alhpa
+  var g = accelAtSeaLevel;
+  var r = planetRadius;
+  var t = orbitalPeriod;
+  var h = ((Math.cbrt(g) * Math.pow(r, 2/3) * Math.pow(t, 2/3)) / Math.pow(2 * Math.PI, 2/3)) - r;
+  return h;
 };
 
 module.exports.orbitalVelocity = orbitalVelocity;
 module.exports.orbitalPeriod = orbitalPeriod;
+module.exports.orbitalAltitude = orbitalAltitude;
