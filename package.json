@@ -11,6 +11,7 @@
   "author": "Cody Thompson",
   "license": "ISC",
   "dependencies": {
+    "class-builder-js": "git+https://github.com/codythompson/class-builder-js.git",
     "jsdoc": "^3.5.4",
     "webpack": "^3.5.5"
   }
