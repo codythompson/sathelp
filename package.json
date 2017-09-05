@@ -5,11 +5,13 @@
   "main": "src/index.js",
   "scripts": {
     "build": "webpack src/index.js dist/bundle.js && cp src/index.html dist",
+    "jsdoc": "node_modules/.bin/jsdoc -r src -d docs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Cody Thompson",
   "license": "ISC",
   "dependencies": {
+    "jsdoc": "^3.5.4",
     "webpack": "^3.5.5"
   }
 }

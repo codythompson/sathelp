@@ -1,4 +1,9 @@
 /**
+ * A module with functions to help with various orbital calcuations.
+ * @module orbcalc
+ */
+
+/**
  * Calculates the orbital velocity from the given altitude of the major axis.
  * @param {number} altitude - The altitude of the major axis of the orbit, in meters.
  * @param {number} panetRadius - The radius of the planet, in meters.
