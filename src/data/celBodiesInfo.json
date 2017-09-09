@@ -1,0 +1,44 @@
+{
+    "moho": {
+        "name": "Moho",
+        "satellites": {
+
+        }
+    },
+    "eve": {
+        "name": "Eve",
+        "satellites": {
+
+        }
+    },
+    "kerbin": {
+        "name": "Kerbin",
+        "satellites": {
+
+        }
+    },
+    "duna": {
+        "name": "Duna",
+        "satellites": {
+
+        }
+    },
+    "dres":{
+        "name": "Dres",
+        "satellites": {
+
+        }
+    },
+    "jool": {
+        "name": "Jool",
+        "satellites": {
+
+        }
+    },
+    "eeloo": {
+        "name": "Eeloo",
+        "satellites": {
+
+        }
+    }
+}
