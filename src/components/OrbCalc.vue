@@ -1,6 +1,6 @@
 <template>
     <div class="orb-calc-comp">
-        <planet-picker :celBodies="celBodies" :selectedBody="3"></planet-picker>
+        <planet-picker :celBodies="celBodies" :initiallySelected="'kerbin'"></planet-picker>
     </div>
 </template>
 
