@@ -15,7 +15,7 @@
 export default {
     name: 'ButtonGroup',
     props: {
-        'initallySelected': null,
+        'initiallySelected': null,
         'buttonLabels': {
             type: Array,
             required: true
@@ -23,7 +23,7 @@ export default {
     },
     data: function () {
         return {
-            selected: this.initallySelected
+            selected: this.initiallySelected
         };
     },
     methods: {

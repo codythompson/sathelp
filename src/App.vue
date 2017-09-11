@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <orb-calc></orb-calc>
+    <div class="container">
+      <orb-calc></orb-calc>
+    </div>
   </div>
 </template>
 

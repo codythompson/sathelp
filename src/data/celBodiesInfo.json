@@ -13,6 +13,8 @@
         {
             "name": "kerbin",
             "label": "Kerbin",
+            "radius": 600000,
+            "grav_sea_level": 9.8,
             "satellites": {}
         },
         {

@@ -1,8 +1,11 @@
 <template>
-    <div class="planet-picker-comp btn-group">
+    <div class="planet-picker-comp">
+        <h3>
+            Orbital Body
+        </h3>
         <button-group
             :buttonLabels="celBodies"
-            :initallySelected="selectedName"
+            :initiallySelected="selectedName"
             v-on:selected="buttonClicked">
         </button-group>
     </div>
