@@ -16,6 +16,4 @@ components: {
 </script>
 
 <style>
-#app {
-}
 </style>

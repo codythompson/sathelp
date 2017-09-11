@@ -1,34 +1,64 @@
 <template>
-    <div class="planet-picker-comp">
-        <select v-model="selectedCelBody" @input="planetPicked">
-            <option v-for="(celBody, key) in celBodies" v-bind:key="key" :value="celBody.name">
-                {{celBody.name}}
-            </option>
-        </select>
+    <div class="planet-picker-comp btn-group">
+        <button-group
+            :buttonLabels="celBodies"
+            :initallySelected="selectedName"
+            v-on:selected="buttonClicked">
+        </button-group>
     </div>
 </template>
 
 <script>
+import ButtonGroup from './ButtonGroup'
+import _ from 'lodash'
+
 export default {
     name: 'PlanetPicker',
+    components: {
+        ButtonGroup
+    },
     props: {
         celBodies: {
-            type: Object,
+            type: Array,
             required: true
         },
-        initialCelBody: {
-            default: '',
-            type: String
+        initiallySelected: {
+            type: [String, Number],
+            default: 0
         }
     },
     data () {
+        var selIx;
+        if (typeof this.initiallySelected === 'number') {
+            selIx = this.initiallySelected;
+        } else if (typeof this.initiallySelected === 'string') {
+            selIx = this.getIndexFromName(this.initiallySelected);
+        }
         return {
-            selectedCelBody: this.initialCelBody
+            selectedIndex: selIx
+        }
+    },
+    computed: {
+        selectedName: {
+            get: function () {
+                return this.celBodies[this.selectedIndex].name;
+            },
+            set: function (newName) {
+                this.selectedIndex = _.findIndex(this.celBodies, {name: newName});
+            }
         }
     },
     methods: {
-        planetPicked: function () {
-            this.$emit('picked', this.selectedCelBody);
+        getIndexFromName: function (name) {
+            return _.findIndex(this.celBodies, {name: name});
+        },
+        buttonClicked: function (name) {
+            this.selectedIndex = this.getIndexFromName(name);
+            this.$emit('picked', {
+                name: name,
+                index: this.selectedIndex,
+                bodyInfo: this.celBodies[this.selectedIndex]
+            });
         }
     }
 }

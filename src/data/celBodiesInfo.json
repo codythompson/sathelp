@@ -1,44 +1,39 @@
 {
-    "moho": {
-        "name": "Moho",
-        "satellites": {
-
+    "stock": [
+        {
+            "name": "moho",
+            "label": "Moho",
+            "satellites": {}
+        },
+        {
+            "name": "eve",
+            "label": "Eve",
+            "satellites": {}
+        },
+        {
+            "name": "kerbin",
+            "label": "Kerbin",
+            "satellites": {}
+        },
+        {
+            "name": "duna",
+            "label": "Duna",
+            "satellites": {}
+        },
+        {
+            "name": "dres",
+            "label": "Dres",
+            "satellites": {}
+        },
+        {
+            "name": "jool",
+            "label": "Jool",
+            "satellites": {}
+        },
+        {
+            "name": "eeloo",
+            "label": "Eeloo",
+            "satellites": {}
         }
-    },
-    "eve": {
-        "name": "Eve",
-        "satellites": {
-
-        }
-    },
-    "kerbin": {
-        "name": "Kerbin",
-        "satellites": {
-
-        }
-    },
-    "duna": {
-        "name": "Duna",
-        "satellites": {
-
-        }
-    },
-    "dres":{
-        "name": "Dres",
-        "satellites": {
-
-        }
-    },
-    "jool": {
-        "name": "Jool",
-        "satellites": {
-
-        }
-    },
-    "eeloo": {
-        "name": "Eeloo",
-        "satellites": {
-
-        }
-    }
+    ]
 }

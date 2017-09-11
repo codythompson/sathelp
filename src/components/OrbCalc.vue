@@ -1,6 +1,6 @@
 <template>
     <div class="orb-calc-comp">
-        <planet-picker :celBodies="celBodies" :initialCelBody="celBodies.kerbin.name"></planet-picker>
+        <planet-picker :celBodies="celBodies" :selectedBody="3"></planet-picker>
     </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
     },
     data () {
         return {
-            celBodies: celBodiesInfo
+            celBodies: celBodiesInfo.stock
         }
     },
     // computed: {
