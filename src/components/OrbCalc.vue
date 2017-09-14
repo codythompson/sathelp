@@ -1,7 +1,11 @@
 <template>
     <div class="orb-calc-comp">
-        <planet-picker :celBodies="celBodies" :initiallySelected="'kerbin'"></planet-picker>
-        <planet-info :bodyInfo="celBodies[2]"></planet-info>
+        <planet-picker
+            :celBodies="celBodies"
+            :initiallySelected="selectedName"
+            v-on:picked="pickedPlanet">
+        </planet-picker>
+        <planet-info :bodyInfo="selectedBody"></planet-info>
     </div>
 </template>
 
@@ -18,9 +22,23 @@ export default {
     },
     data () {
         return {
+            selectedBodyIx: 2, // TODO set this from a prop
             celBodies: celBodiesInfo.stock
         }
     },
+    computed: {
+        selectedBody: function () {
+            return this.celBodies[this.selectedBodyIx];
+        },
+        selectedName: function () {
+            return this.selectedBody.name;
+        }
+    },
+    methods: {
+        pickedPlanet: function (e) {
+            this.selectedBodyIx = e.index;
+        }
+    }
     // computed: {
     //     celBodies: function () {
     //         return celBodiesInfo
