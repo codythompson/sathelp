@@ -1,15 +1,15 @@
 <template>
     <div class="planet-info-comp">
         <div class="row">
-            <div class="col-xs-5">
+            <div class="col-xs-5 col-sm-3 col-md-2">
                 <label>Radius:</label>
                 <span>{{radius}}{{units}}</span>
             </div>
-            <div class="col-xs-5">
+            <div class="col-xs-5 col-sm-3 col-md-2">
                 <label>Grav. Accel.:</label>
                 <span>{{gravAccel}}{{units}}/s<span class="exponent">2</span></span>
             </div>
-            <div class="col-xs-2">
+            <div class="col-xs-2 col-sm-3 col-md-2">
                 <button-group
                     :buttonLabels="unitLabels"
                     :initiallySelected="'m'"
