@@ -42,13 +42,13 @@ OrbRenderer.prototype.bufferData = function () {
     var gl = this.gl;
 
     var tempBuffer = new Float32Array([
-        -1, 1, 0.5, 1, // TL
-        -1, -1, 0.5, 1, // BL
-        1, -1, 0.5, 1, // BR
+        -1, 1, 0.5, // TL
+        -1, -1, 0.5, // BL
+        1, -1, 0.5, // BR
 
-        1, -1, 0.5, 1, // BR
-        1, 1, 0.5, 1, // TR
-        -1, 1, 0.5, 1, // TL
+        1, -1, 0.5, // BR
+        1, 1, 0.5, // TR
+        -1, 1, 0.5, // TL
     ]);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, this.vertBuffer);

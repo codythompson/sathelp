@@ -3,7 +3,8 @@
         <div class="panel-heading">
             Orbit Viewer
         </div>
-        <div class="panel-body">
+        <!-- <div class="panel-body"> -->
+        <div>
             <div v-show="isError" class="alert alert-danger error">
                 <strong>Orbit Viewer Error</strong>
                 <p v-show="hasErrorMessage" class="message">{{errorMessage}}</p>
@@ -15,12 +16,11 @@
 </template>
 <style scoped>
 div.orb-viewer-cont {
+    box-sizing: border-box;
     width: 100%;
-    height: 100%;
 }
 .canvas {
     width: 100%;
-    height: 100%;
 }
 .error p.text {
     font-family: monospace;
@@ -47,6 +47,7 @@ export default {
             errors: errors,
             errorMessage: null,
             errorText: null,
+            isMounted: false,
             player: null,
         };
     },
@@ -72,11 +73,26 @@ export default {
     methods: {
         isState: function (state) {
             return this.state === state;
-        }
+        },
+        resize: function () {
+            // we don't need to do this if we aren't mounted yet
+            if (!this.isMounted || this.state === this.states.error) {
+                return;
+            }
+
+            var canvas = this.$refs.canvas;
+            var elWidth = this.$el.clientWidth;
+            canvas.width = elWidth;
+            canvas.height = elWidth;
+            var gl = this.player.gl;
+            gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+        },
     },
     mounted: function () {
+        this.isMounted = true;
         var canvas = this.$refs.canvas;
         var gl = canvas.getContext('webgl');
+        window.gl = gl;
         if (!gl) {
             this.state = this.states.error;
             this.errorMessage = this.errors.noWebGL;
@@ -84,11 +100,13 @@ export default {
         }
         try {
             this.player = new OrbPlayer({
-                gl: gl,
-                autoUpdate: false,
-                autoRender: false
+                gl: gl
             });
-            this.player.render();
+            this.resize();
+            var self = this;
+            window.addEventListener('resize', function () {
+                self.resize();
+            });
         } catch (e) {
             this.state = this.states.error;
             this.errorMessage = this.errors.badPlayerInit;
