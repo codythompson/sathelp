@@ -3,7 +3,7 @@ var OrbRenderer = require('./orbrenderer');
 
 ClassBuilder.new('OrbitPlayer');
 ClassBuilder.field('gl');
-ClassBuilder.required('gl');
+ClassBuilder.require('gl');
 ClassBuilder.field('autoUpdate');
 ClassBuilder.default('autoUpdate', true);
 ClassBuilder.field('autoRender');

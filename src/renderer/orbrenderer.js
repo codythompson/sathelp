@@ -2,14 +2,14 @@ var ClassBuilder = require('class-builder');
 var Shaders = require('./shaders');
 
 ClassBuilder.new('OrbRenderer');
-ClassBuilder.fields('gl');
-ClassBuilder.required('gl');
-ClassBuilder.fields('circleMaxRad');
-ClassBuilder.defaults('circleMaxRad', 10);
-ClassBuilder.fields('circleMinRad');
-ClassBuilder.defaults('circleMaxRad', 0);
-ClassBuilder.fields('circlePos');
-ClassBuilder.defaults('circlePos', new Float32Array([0, 0]));
+ClassBuilder.field('gl');
+ClassBuilder.require('gl');
+ClassBuilder.field('circleMaxRad');
+ClassBuilder.default('circleMaxRad', 10);
+ClassBuilder.field('circleMinRad');
+ClassBuilder.default('circleMaxRad', 0);
+ClassBuilder.field('circlePos');
+ClassBuilder.default('circlePos', new Float32Array([0, 0]));
 ClassBuilder.init = function (args) {
     var gl = this.gl;
     Shaders.init(gl);

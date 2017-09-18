@@ -1,24 +1,29 @@
 <template>
-    <div class="planet-picker-comp">
-        <h3>
+    <div class="planet-picker-comp panel panel-default">
+        <div class="panel-heading">
             Orbital Body
-        </h3>
-        <button-group
-            :buttonLabels="celBodies"
-            :initiallySelected="selectedName"
-            v-on:selected="buttonClicked">
-        </button-group>
+        </div>
+        <div class="panel-body">
+            <button-group
+                :buttonLabels="celBodies"
+                :initiallySelected="selectedName"
+                v-on:selected="buttonClicked">
+            </button-group>
+            <planet-info :bodyInfo="selectedBody"></planet-info>
+        </div>
     </div>
 </template>
 
 <script>
-import ButtonGroup from './ButtonGroup'
 import _ from 'lodash'
+import ButtonGroup from './ButtonGroup'
+import PlanetInfo from './PlanetInfo'
 
 export default {
     name: 'PlanetPicker',
     components: {
-        ButtonGroup
+        ButtonGroup,
+        PlanetInfo
     },
     props: {
         celBodies: {
@@ -49,7 +54,10 @@ export default {
             set: function (newName) {
                 this.selectedIndex = _.findIndex(this.celBodies, {name: newName});
             }
-        }
+        },
+        selectedBody: function () {
+            return this.celBodies[this.selectedIndex];
+        },
     },
     methods: {
         getIndexFromName: function (name) {

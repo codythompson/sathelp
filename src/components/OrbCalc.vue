@@ -5,20 +5,17 @@
             :initiallySelected="selectedName"
             v-on:picked="pickedPlanet">
         </planet-picker>
-        <planet-info :bodyInfo="selectedBody"></planet-info>
     </div>
 </template>
 
 <script>
 import PlanetPicker from './PlanetPicker'
-import PlanetInfo from './PlanetInfo'
 import celBodiesInfo from '../data/celBodiesInfo.json'
 
 export default {
     name: 'OrbCalc',
     components: {
-        PlanetPicker,
-        PlanetInfo
+        PlanetPicker
     },
     data () {
         return {
