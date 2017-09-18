@@ -1,19 +1,86 @@
-var vert_src = `
-void main () {
-}
-`;
-var frag_src = `
-uniform vec2 circlePos;
-uniform float circleMaxRad;
-uniform float circleMinRad;
-void main () {
-    float dist = distance(gl_FragCoord.xy, circlePos);
-    
-    vec4 circColor = vec4(1.0, 1.0, 1.0, 1.0);
-	vec4 bgColor = vec4(1.0, 0.0, 0.0, 1.0);
-    
-    float circMag = clamp(max(maxRad-dist, 0.0) * max(dist-minRad, 0.0), 0.0, 1.0);
-    
-    fragColor = (circMag*circColor) + ((1.0-circMag)*bgColor);
-}
-`;
+var ClassBuilder = require('class-builder');
+var Shaders = require('./shaders');
+
+ClassBuilder.new('OrbRenderer');
+ClassBuilder.fields('gl');
+ClassBuilder.required('gl');
+ClassBuilder.fields('circleMaxRad');
+ClassBuilder.defaults('circleMaxRad', 10);
+ClassBuilder.fields('circleMinRad');
+ClassBuilder.defaults('circleMaxRad', 0);
+ClassBuilder.fields('circlePos');
+ClassBuilder.defaults('circlePos', new Float32Array([0, 0]));
+ClassBuilder.init = function (args) {
+    var gl = this.gl;
+    Shaders.init(gl);
+    this.shader = Shaders.circleProgram;
+    this.setupShader();
+};
+var OrbRenderer = ClassBuilder.build();
+
+OrbRenderer.setupShader = function () {
+    var gl = this.gl;
+    var shader = this.shader;
+
+    this.vertBuffer = gl.createBuffer();
+    this.vertAttribLoc = gl.getAttribLocation(shader, 'pos');
+    this.circlePosUniLoc = gl.getUniformLocation(shader, 'circlePos');
+    this.circleMaxRadUniLoc = gl.getUniformLocation(shader, 'circleMaxRad');
+    this.circleMinRadUniLoc = gl.getUniformLocation(shader, 'circleMinRad');
+    this.bufferDataDirty = true;
+    this.uniformDataDirty = true;
+};
+
+OrbRenderer.setUniforms = function () {
+    var gl = this.gl;
+    gl.uniform2fv(this.circlePosUniLoc, this.circlePos);
+    gl.uniform1f(this.circleMaxRadUniLoc, this.circleMaxRad);
+    gl.uniform1f(this.circleMinUniLoc, this.circleMinRad);
+};
+
+OrbRenderer.bufferData = function () {
+    var gl = this.gl;
+
+    var tempBuffer = new Float32Array([
+        -1, 1, 0.5, 1, // TL
+        -1, -1, 0.5, 1, // BL
+        1, -1, 0.5, 1, // BR
+
+        1, -1, 0.5, 1, // BR
+        1, 1, 0.5, 1, // TR
+        -1, 1, 0.5, 1, // TL
+    ]);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.vertBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, tempBuffer, gl.STATIC_DRAW);
+};
+
+OrbRenderer.enableAttribs = function () {
+    var gl = this.gl;
+    gl.enableVertexAttribArray(this.vertAttribLoc);
+    gl.vertexAttribPointer(gl.ARRAY_BUFFER, 3, gl.FLOAT, false, 0, 0);
+};
+
+OrbRenderer.disableAttribs = function () {
+    var gl = this.gl;
+    gl.disableVertexAttribArray(this.vertAttribLoc);
+};
+
+OrbRenderer.render = function () {
+    this.enableAttribs();
+
+    if (this.bufferDataDirty) {
+        this.bufferData();
+    }
+    if (this.uniformDataDirty) {
+        this.setUniforms();
+    }
+
+    var gl = this.gl;
+    var vertCnt = 6;
+    gl.drawArrays(gl.TRIANGLES, 0, vertCnt);
+
+    this.disableAttribs();
+};
+
+module.exports = OrbRenderer;
