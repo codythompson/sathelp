@@ -84,8 +84,11 @@ export default {
         }
         try {
             this.player = new OrbPlayer({
-                gl: gl
+                gl: gl,
+                autoUpdate: false,
+                autoRender: false
             });
+            this.player.render();
         } catch (e) {
             this.state = this.states.error;
             this.errorMessage = this.errors.badPlayerInit;

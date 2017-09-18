@@ -1,22 +1,22 @@
 var vertSrc = `
 attribute vec3 pos;
 void main () {
-    gl_Position = vec4(pos, 0);
+    gl_Position = vec4(pos, 1);
 }
 `;
 var fragSrc = `
-uniform vec2 circlePos;
-uniform float circleMaxRad;
-uniform float circleMinRad;
+uniform lowp vec2 circlePos;
+uniform lowp float circleMaxRad;
+uniform lowp float circleMinRad;
 void main () {
-    float dist = distance(gl_FragCoord.xy, circlePos);
+    lowp float dist = distance(gl_FragCoord.xy, circlePos);
     
-    vec4 circColor = vec4(1.0, 1.0, 1.0, 1.0);
-	vec4 bgColor = vec4(1.0, 0.0, 0.0, 1.0);
+    lowp vec4 circColor = vec4(1.0, 1.0, 1.0, 1.0);
+	lowp vec4 bgColor = vec4(1.0, 0.0, 0.0, 1.0);
     
-    float circMag = clamp(max(maxRad-dist, 0.0) * max(dist-minRad, 0.0), 0.0, 1.0);
+    lowp float circMag = clamp(max(circleMaxRad-dist, 0.0) * max(dist-circleMinRad, 0.0), 0.0, 1.0);
     
-    fragColor = (circMag*circColor) + ((1.0-circMag)*bgColor);
+    gl_FragColor = (circMag*circColor) + ((1.0-circMag)*bgColor);
 }
 `;
 

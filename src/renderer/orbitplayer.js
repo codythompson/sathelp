@@ -26,7 +26,7 @@ ClassBuilder.init = function (args) {
 };
 var OrbitPlayer = ClassBuilder.build();
 
-OrbitPlayer.update = function () {
+OrbitPlayer.prototype.update = function () {
     var ts = Date.now();
     var dt = ts - this.lastUpdate;
     this.lastUpdate = ts;
@@ -38,7 +38,7 @@ OrbitPlayer.update = function () {
     }
 };
 
-OrbitPlayer.render = function () {
+OrbitPlayer.prototype.render = function () {
     this.renderer.render();
 
     // if autoUpdate is set, call this again the next time

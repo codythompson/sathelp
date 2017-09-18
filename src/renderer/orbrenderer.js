@@ -7,11 +7,10 @@ ClassBuilder.require('gl');
 ClassBuilder.field('circleMaxRad');
 ClassBuilder.default('circleMaxRad', 10);
 ClassBuilder.field('circleMinRad');
-ClassBuilder.default('circleMaxRad', 0);
+ClassBuilder.default('circleMinRad', 0);
 ClassBuilder.field('circlePos');
 ClassBuilder.default('circlePos', new Float32Array([0, 0]));
 ClassBuilder.init = function (args) {
-    debugger;
     var gl = this.gl;
     Shaders.init(gl);
     this.shader = Shaders.circleProgram;
@@ -19,7 +18,7 @@ ClassBuilder.init = function (args) {
 };
 var OrbRenderer = ClassBuilder.build();
 
-OrbRenderer.setupShader = function () {
+OrbRenderer.prototype.setupShader = function () {
     var gl = this.gl;
     var shader = this.shader;
 
@@ -32,14 +31,14 @@ OrbRenderer.setupShader = function () {
     this.uniformDataDirty = true;
 };
 
-OrbRenderer.setUniforms = function () {
+OrbRenderer.prototype.setUniforms = function () {
     var gl = this.gl;
     gl.uniform2fv(this.circlePosUniLoc, this.circlePos);
     gl.uniform1f(this.circleMaxRadUniLoc, this.circleMaxRad);
-    gl.uniform1f(this.circleMinUniLoc, this.circleMinRad);
+    gl.uniform1f(this.circleMinRadUniLoc, this.circleMinRad);
 };
 
-OrbRenderer.bufferData = function () {
+OrbRenderer.prototype.bufferData = function () {
     var gl = this.gl;
 
     var tempBuffer = new Float32Array([
@@ -56,28 +55,34 @@ OrbRenderer.bufferData = function () {
     gl.bufferData(gl.ARRAY_BUFFER, tempBuffer, gl.STATIC_DRAW);
 };
 
-OrbRenderer.enableAttribs = function () {
+OrbRenderer.prototype.enableAttribs = function () {
     var gl = this.gl;
     gl.enableVertexAttribArray(this.vertAttribLoc);
-    gl.vertexAttribPointer(gl.ARRAY_BUFFER, 3, gl.FLOAT, false, 0, 0);
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.vertBuffer);
+    gl.vertexAttribPointer(this.vertAttribLoc, 3, gl.FLOAT, false, 0, 0);
 };
 
-OrbRenderer.disableAttribs = function () {
+OrbRenderer.prototype.disableAttribs = function () {
     var gl = this.gl;
     gl.disableVertexAttribArray(this.vertAttribLoc);
 };
 
-OrbRenderer.render = function () {
-    this.enableAttribs();
+OrbRenderer.prototype.render = function () {
+    var gl = this.gl;
+
+    gl.useProgram(this.shader);
 
     if (this.bufferDataDirty) {
         this.bufferData();
+        this.bufferDataDirty = false;
     }
     if (this.uniformDataDirty) {
         this.setUniforms();
+        this.uniformDataDirty = false;
     }
 
-    var gl = this.gl;
+    this.enableAttribs();
+
     var vertCnt = 6;
     gl.drawArrays(gl.TRIANGLES, 0, vertCnt);
 
