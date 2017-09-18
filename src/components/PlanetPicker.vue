@@ -47,7 +47,7 @@ export default {
         }
         return {
             isMounted: false,
-            isSmall: true,
+            isSmall: window.innerWidth < smallScreenThreshold,
             smallScreenThreshold: smallScreenThreshold,
             selectedIndex: selIx
         }
