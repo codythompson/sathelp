@@ -84,7 +84,7 @@ export default {
         }
         try {
             this.player = new OrbPlayer({
-
+                gl: gl
             });
         } catch (e) {
             this.state = this.states.error;

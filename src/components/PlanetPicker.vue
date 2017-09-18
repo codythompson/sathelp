@@ -7,7 +7,8 @@
             <button-group
                 :buttonLabels="celBodies"
                 :initiallySelected="selectedName"
-                v-on:selected="buttonClicked">
+                v-on:selected="buttonClicked"
+                :class="buttonGroupClass">
             </button-group>
             <planet-info :bodyInfo="selectedBody"></planet-info>
         </div>
@@ -18,6 +19,8 @@
 import _ from 'lodash'
 import ButtonGroup from './ButtonGroup'
 import PlanetInfo from './PlanetInfo'
+// const smallScreenThreshold = 512;
+var smallScreenThreshold = 512;
 
 export default {
     name: 'PlanetPicker',
@@ -43,8 +46,20 @@ export default {
             selIx = this.getIndexFromName(this.initiallySelected);
         }
         return {
+            isMounted: false,
+            isSmall: true,
+            smallScreenThreshold: smallScreenThreshold,
             selectedIndex: selIx
         }
+    },
+    created: function () {
+        var self = this;
+        window.addEventListener('resize', function () {
+            self.onResize();
+        });
+    },
+    mounted: function () {
+        this.isMounted = true;
     },
     computed: {
         selectedName: {
@@ -58,8 +73,20 @@ export default {
         selectedBody: function () {
             return this.celBodies[this.selectedIndex];
         },
+        /* 
+         * not triggered on resize :`(
+         */
+        buttonGroupClass: function () {
+            return {
+                'btn-group-xs': this.isSmall,
+                'btn-group-sm': !this.isSmall
+            };
+        }
     },
     methods: {
+        onResize: function () {
+            this.isSmall = window.innerWidth < this.smallScreenThreshold;
+        },
         getIndexFromName: function (name) {
             return _.findIndex(this.celBodies, {name: name});
         },

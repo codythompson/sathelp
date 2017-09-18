@@ -11,6 +11,7 @@ ClassBuilder.default('circleMaxRad', 0);
 ClassBuilder.field('circlePos');
 ClassBuilder.default('circlePos', new Float32Array([0, 0]));
 ClassBuilder.init = function (args) {
+    debugger;
     var gl = this.gl;
     Shaders.init(gl);
     this.shader = Shaders.circleProgram;
