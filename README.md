@@ -2,6 +2,17 @@
 
 > A tool for calculating satellite transfer orbits in KSP.
 
+One day I decided that I really wanted equidistant comm satellites in my kerbal space program game. I looked around and wasn't happen with the existing calculators so I decided to build my own.
+
+I had been meaning to get familiar with these new fangled JavaScript "frameworks" and half randomly settled on Vue. It seems to strike a nice balance between forcing you to use paradigms that help with scale, and letting you do what you want. Also, their docs are layed out in an easy to use way.
+
+In it's current state, this web app will tell you apogee and perigee of a transfer orbit just for kerbin. It also has a big red square that I would like to one day be an animation of the satellites in orbit. These are the things I would like to do in the near future
+
+1. Add unit tests where possible.
+2. Add the missing values for the planets
+3. Add the moons
+4. Have the 'Orbit Viewer' do something a little more helpful
+
 ## Build Setup
 
 ``` bash

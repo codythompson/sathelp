@@ -1,3 +1,9 @@
+/**
+ * @module Shaders
+ * 
+ * contains the source for the shaders used by OrbitRenderer
+ * contains code for compiling shaders
+ */
 var vertSrc = `
 attribute vec3 pos;
 varying lowp vec3 fragPos;
@@ -32,6 +38,10 @@ var Shaders = {
 
     circleProgram: null,
 
+    /**
+     * @constructor init
+     * compiles the circleProgram
+     */
     init: function (gl) {
         this.circleProgram = this.compileShaderProgram(gl, this.circleVertSrc, this.circleFragSrc);
     },
@@ -45,7 +55,6 @@ var Shaders = {
      * @param {!WebGLRenderingContext} gl The WebGL Context.
      * @param {string} vertexSource The GLSL source code for the vertex shader.
      * @param {string} fragmentSource The GLSL source code for the fragment shader.
-     * @param {number} shaderType The type of shader, VERTEX_SHADER or
      *     FRAGMENT_SHADER.
      * @return {!WebGLShader} The shader.
      */
