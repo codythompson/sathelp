@@ -6,7 +6,7 @@
         <div class="panel-body">
             <button-group
                 :buttonLabels="celBodies"
-                :initiallySelected="selectedName"
+                :selected="selectedName"
                 v-on:selected="buttonClicked"
                 :class="buttonGroupClass">
             </button-group>
@@ -33,23 +33,16 @@ export default {
             type: Array,
             required: true
         },
-        initiallySelected: {
-            type: [String, Number],
-            default: 0
+        selectedPlanet: {
+            type: Number,
+            required: true
         }
     },
     data () {
-        var selIx;
-        if (typeof this.initiallySelected === 'number') {
-            selIx = this.initiallySelected;
-        } else if (typeof this.initiallySelected === 'string') {
-            selIx = this.getIndexFromName(this.initiallySelected);
-        }
         return {
             isMounted: false,
             isSmall: window.innerWidth < smallScreenThreshold,
-            smallScreenThreshold: smallScreenThreshold,
-            selectedIndex: selIx
+            smallScreenThreshold: smallScreenThreshold
         }
     },
     created: function () {
@@ -62,16 +55,11 @@ export default {
         this.isMounted = true;
     },
     computed: {
-        selectedName: {
-            get: function () {
-                return this.celBodies[this.selectedIndex].name;
-            },
-            set: function (newName) {
-                this.selectedIndex = _.findIndex(this.celBodies, {name: newName});
-            }
+        selectedName: function () {
+            return this.celBodies[this.selectedPlanet].name;
         },
         selectedBody: function () {
-            return this.celBodies[this.selectedIndex];
+            return this.celBodies[this.selectedPlanet];
         },
         /* 
          * not triggered on resize :`(
@@ -91,11 +79,10 @@ export default {
             return _.findIndex(this.celBodies, {name: name});
         },
         buttonClicked: function (name) {
-            this.selectedIndex = this.getIndexFromName(name);
+            var selectedIndex = this.getIndexFromName(name);
             this.$emit('picked', {
                 name: name,
-                index: this.selectedIndex,
-                bodyInfo: this.celBodies[this.selectedIndex]
+                index: selectedIndex
             });
         }
     }

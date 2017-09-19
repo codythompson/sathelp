@@ -15,7 +15,10 @@
 export default {
     name: 'ButtonGroup',
     props: {
-        'initiallySelected': null,
+        'selected': {
+            type: String,
+            required: true
+        },
         'buttonLabels': {
             type: Array,
             required: true
@@ -23,12 +26,12 @@ export default {
     },
     data: function () {
         return {
-            selected: this.initiallySelected
+            // selected: this.initiallySelected
         };
     },
     methods: {
         handleClick: function (e) {
-            this.selected = e.target.name;
+            // this.selected = e.target.name;
             this.$emit('selected', e.target.name);
         },
         classObject: function (name) {

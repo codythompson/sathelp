@@ -2,7 +2,7 @@
     <div class="orb-calc-comp">
         <planet-picker
             :celBodies="celBodies"
-            :initiallySelected="selectedName"
+            :selectedPlanet="planetIndex"
             v-on:picked="pickedPlanet">
         </planet-picker>
         <sat-const-params></sat-const-params>
@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import celBodiesInfo from '../data/celBodiesInfo.json'
 import PlanetPicker from './PlanetPicker'
 import SatConstParams from './SatConstParams'
@@ -20,23 +21,34 @@ export default {
         PlanetPicker,
         SatConstParams
     },
+    props: {
+        appState: {
+            type: Object,
+            required: true
+        }
+    },
     data () {
         return {
-            selectedBodyIx: 2, // TODO set this from a prop
-            celBodies: celBodiesInfo.stock
+            celBodies: this.appState.celBodyInfo.stock
         }
     },
     computed: {
-        selectedBody: function () {
-            return this.celBodies[this.selectedBodyIx];
+        planetIndex: function () {
+            return this.appState.selectedPlanetIx;
         },
-        selectedName: function () {
-            return this.selectedBody.name;
+        planet: function () {
+            return this.celBodies[appState.selectedPlanetIx];
+        },
+        planetName: function () {
+            return this.planet.name;
         }
     },
     methods: {
         pickedPlanet: function (e) {
-            this.selectedBodyIx = e.index;
+            this.$emit('state-change', {
+                field: 'selectedPlanetIx',
+                newVal: e.index
+            });
         }
     }
     // computed: {

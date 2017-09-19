@@ -15,7 +15,7 @@
             <div class="col-xs-4 col-sm-3 col-md-4 form-group">
                 <button-group
                     :buttonLabels="unitLabels"
-                    :initiallySelected="initialUnits"
+                    :selected="units"
                     v-on:selected="setUnits"
                     class="btn-group-xs">
                 </button-group>

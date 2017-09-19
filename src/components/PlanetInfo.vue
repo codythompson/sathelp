@@ -12,7 +12,7 @@
             <div class="col-xs-4 col-sm-3 col-md-4">
                 <button-group
                     :buttonLabels="unitLabels"
-                    :initiallySelected="'m'"
+                    :selected="units"
                     v-on:selected="setUnits"
                     class="btn-group-xs">
                 </button-group>
