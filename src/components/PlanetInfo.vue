@@ -35,6 +35,10 @@ export default {
             validator: function (val) {
                 return val === 'm' || val === 'km';
             }
+        },
+        accelDecimalPlaces: {
+            type: Number,
+            default: 5
         }
     },
     data: function () {
@@ -71,11 +75,24 @@ export default {
             this.units = units;
         },
         getVal: function (valInMeters) {
+            var val;
             if (this.units === 'km') {
-                return valInMeters/1000;
+                val = valInMeters/1000;
             } else {
-                return valInMeters;
+                val = valInMeters;
             }
+            val = this.round(val, this.accelDecimalPlaces);
+            return val;
+        },
+        round: function (val, places) {
+            val *= Math.pow(10, places);
+            val = parseInt(Math.round(val));
+
+            // this might result in precision errors
+            // precision errors kind of make this method pointless
+            val /= Math.pow(10, places);
+
+            return val;
         }
     }
 }
