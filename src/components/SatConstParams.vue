@@ -96,7 +96,7 @@ export default {
                 newVal: val
             });
         },
-        satCountInput: function (val) {
+        satCountInput: function (e) {
             var val = Number(e.target.value.trim());
             // TODO VALIDATION!!!
             this.$emit('param-change', {

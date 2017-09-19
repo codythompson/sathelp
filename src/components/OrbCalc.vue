@@ -19,6 +19,7 @@
 
 <script>
 import _ from 'lodash'
+import ocutil from '../orbcalc'
 import celBodiesInfo from '../data/celBodiesInfo.json'
 import PlanetPicker from './PlanetPicker'
 import SatConstParams from './SatConstParams'
@@ -39,7 +40,7 @@ export default {
     },
     data () {
         return {
-            celBodies: this.appState.celBodyInfo.stock
+            celBodies: this.appState.celBodyInfo.stock,
         }
     },
     computed: {
@@ -47,13 +48,22 @@ export default {
             return this.appState.selectedPlanetIx;
         },
         planet: function () {
-            return this.celBodies[appState.selectedPlanetIx];
+            return this.celBodies[this.appState.selectedPlanetIx];
         },
         planetName: function () {
             return this.planet.name;
         },
         apoapsis: function () {
-            return this.appState.orbAlt;
+            var planet = this.planet;
+            var apoapsis = ocutil.apogeeEquidistantTransferOrbit(
+                this.appState.orbAlt,
+                this.appState.satCount,
+                planet.radius,
+                planet.grav_sea_level
+            );
+            apoapsis = parseInt(Math.round(apoapsis));
+
+            return apoapsis;
         },
         periapsis: function () {
             return this.appState.orbAlt;
@@ -70,10 +80,5 @@ export default {
             this.$emit('state-change', e);
         }
     }
-    // computed: {
-    //     celBodies: function () {
-    //         return celBodiesInfo
-    //     }
-    // }
 }
 </script>
