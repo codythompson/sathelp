@@ -5,7 +5,11 @@
             :selectedPlanet="planetIndex"
             v-on:picked="pickedPlanet">
         </planet-picker>
-        <sat-const-params></sat-const-params>
+        <sat-const-params
+            :orbAlt="appState.orbAlt"
+            :satCount="appState.satCount"
+            v-on:param-change="satParamChange">
+        </sat-const-params>
     </div>
 </template>
 
@@ -49,6 +53,9 @@ export default {
                 field: 'selectedPlanetIx',
                 newVal: e.index
             });
+        },
+        satParamChange: function (e) {
+            this.$emit('state-change', e);
         }
     }
     // computed: {

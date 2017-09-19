@@ -5,11 +5,12 @@
         </div>
         <div class="panel-body row">
             <div class="col-xs-4 col-sm-3 col-md-4 form-group">
-                <label for="satCount">Sat. Count</label><input class="form-control" name="satCount" v-model="satCount">
+                <label for="satCount">Sat. Count</label>
+                <input class="form-control" name="satCount" :value="satCount" v-on:input="satCountInput">
             </div>
             <div class="col-xs-4 col-sm-3 col-md-4 form-group">
                 <label for="orbAltInput">Orbit Altitude</label>
-                <input class="form-control form-control-units" name="orbAltInput" v-model="orbAlt">
+                <input class="form-control form-control-units" name="orbAltInput" :value="formattedOrbAlt" v-on:input="orbAltInput">
                 <span class="form-control-units-label">{{units}}</span>
             </div>
             <div class="col-xs-4 col-sm-3 col-md-4 form-group">
@@ -49,13 +50,13 @@ export default {
                 return val === 'm' || val === 'km';
             }
         },
-        initialOrbAlt: {
+        orbAlt: {
             type: Number,
-            default: 200000
+            requires: true,
         },
-        initialSatCount: {
+        satCount: {
             type: Number,
-            default: 4
+            required: true
         }
     },
     data() {
@@ -64,33 +65,45 @@ export default {
             unitLabels: [
                 {name: 'm', label: 'm'},
                 {name: 'km', label: 'km'}
-            ],
-            orbAltMeters: this.initialOrbAlt,
-            satCount: this.initialSatCount
+            ]
         };
     },
     computed: {
-        orbAlt: {
-            get: function () {
-                if (this.units === 'km') {
-                    return this.orbAltMeters/1000;
-                } else {
-                    return this.orbAltMeters;
-                }
-            },
-            set: function (val) {
-                if (this.units === 'km') {
-                    this.orbAltMeters = val*1000;
-                } else {
-                    this.orbAltMeters = val;
-                }
+        formattedOrbAlt: function () {
+            var val = this.orbAlt;
+            if (this.units === 'km') {
+                val /= 1000;
             }
+            return val;
         }
     },
     methods: {
         setUnits: function (units) {
             this.units = units;
-        }
+        },
+        getOrbAlt: function (formVal) {
+            var val = Number(formVal.trim());
+            if (this.units === 'km') {
+                val *= 1000;
+            }
+            return val;
+        },
+        orbAltInput: function (e) {
+            var val = this.getOrbAlt(e.target.value);
+            // TODO VALIDATION!!!
+            this.$emit('param-change', {
+                field: 'orbAlt',
+                newVal: val
+            });
+        },
+        satCountInput: function (val) {
+            var val = Number(e.target.value.trim());
+            // TODO VALIDATION!!!
+            this.$emit('param-change', {
+                field: 'satCount',
+                newVal: val
+            });
+        },
     }
 }
 </script>

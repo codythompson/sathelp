@@ -31,6 +31,10 @@ var AppState = {
     },
 
     set: function (field, newVal) {
+        if (this.debug) {
+            console.log('[AppState][set] changeing ' + field + ' to ' + newVal);
+        }
+
         if (!this.state.hasOwnProperty(field)) {
             throw '[AppState][set] Attempted to set unknown field ' + field;
         }
