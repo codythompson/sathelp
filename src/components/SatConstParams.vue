@@ -25,7 +25,7 @@
 </template>
 <style scopes>
 /*
- * more precise sizing
+ * might need more precise sizing
 */
 input.form-control {
     width: 80%;
