@@ -10,6 +10,10 @@
             :satCount="appState.satCount"
             v-on:param-change="satParamChange">
         </sat-const-params>
+        <transfer-orbit
+            :apoapsis="apoapsis"
+            :periapsis="periapsis">
+        </transfer-orbit>
     </div>
 </template>
 
@@ -18,12 +22,14 @@ import _ from 'lodash'
 import celBodiesInfo from '../data/celBodiesInfo.json'
 import PlanetPicker from './PlanetPicker'
 import SatConstParams from './SatConstParams'
+import TransferOrbit from './TransferOrbit'
 
 export default {
     name: 'OrbCalc',
     components: {
         PlanetPicker,
-        SatConstParams
+        SatConstParams,
+        TransferOrbit
     },
     props: {
         appState: {
@@ -45,7 +51,13 @@ export default {
         },
         planetName: function () {
             return this.planet.name;
-        }
+        },
+        apoapsis: function () {
+            return this.appState.orbAlt;
+        },
+        periapsis: function () {
+            return this.appState.orbAlt;
+        },
     },
     methods: {
         pickedPlanet: function (e) {
