@@ -5,9 +5,9 @@ ClassBuilder.new('OrbRenderer');
 ClassBuilder.field('gl');
 ClassBuilder.require('gl');
 ClassBuilder.field('circleMaxRad');
-ClassBuilder.default('circleMaxRad', 10);
+ClassBuilder.default('circleMaxRad', 0.2);
 ClassBuilder.field('circleMinRad');
-ClassBuilder.default('circleMinRad', 0);
+ClassBuilder.default('circleMinRad', 0.1);
 ClassBuilder.field('circlePos');
 ClassBuilder.default('circlePos', new Float32Array([0, 0]));
 ClassBuilder.init = function (args) {
