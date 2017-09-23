@@ -18,11 +18,15 @@
             "satellites": [
                 {
                     "name": "mun",
-                    "label": "Mun"
+                    "label": "Mun",
+                    "radius": 200000,
+                    "grav_sea_level": 1.63
                 },
                 {
                     "name": "minmus",
-                    "label": "MinMus"
+                    "label": "MinMus",
+                    "radius": 60000,
+                    "grav_sea_level": 0.491
                 }
             ]
         },
