@@ -17,7 +17,7 @@ var AppState = {
     state: {
         celBodyInfo: celBodyInfo,
         selectedPlanetIx: 2,
-        selectedMoonIx: null,
+        selectedSatIx: null,
         orbAlt: 200000,
         satCount: 4
     },

@@ -3,6 +3,7 @@
         <planet-picker
             :celBodies="celBodies"
             :selectedPlanet="planetIndex"
+            :selectedSat="satIndex"
             v-on:picked="pickedPlanet">
         </planet-picker>
         <sat-const-params
@@ -47,6 +48,9 @@ export default {
         planetIndex: function () {
             return this.appState.selectedPlanetIx;
         },
+        satIndex: function () {
+            return this.appState.selectedSatIx;
+        },
         planet: function () {
             return this.celBodies[this.appState.selectedPlanetIx];
         },
@@ -74,6 +78,10 @@ export default {
             this.$emit('state-change', {
                 field: 'selectedPlanetIx',
                 newVal: e.index
+            });
+            this.$emit('state-change', {
+                field: 'selectedSatIx',
+                newVal: e.satIndex
             });
         },
         satParamChange: function (e) {

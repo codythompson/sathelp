@@ -5,21 +5,23 @@
         </div>
         <div class="panel-body">
             <p>
-            <button-group
-                :buttonLabels="celBodies"
-                :selected="selectedName"
-                v-on:selected="buttonClicked"
-                :class="buttonGroupClass">
-            </button-group>
+                <button-group
+                    :buttonLabels="celBodies"
+                    :selected="selectedName"
+                    v-on:selected="buttonClicked"
+                    :class="buttonGroupClass">
+                </button-group>
             </p>
             <p>
-            <button-group
-                v-for="body in celBodies"
-                v-bind:key="body.name"
-                v-show="selectedName == body.name"
-                :buttonLabels="body.satellites"
-                :class="satButtonGroupClass">
-            </button-group>
+                <button-group
+                    v-for="body in celBodies"
+                    :selected="selectedSatName"
+                    v-bind:key="body.name"
+                    v-show="selectedName == body.name"
+                    v-on:selected="satButtonClicked"
+                    :buttonLabels="body.satellites"
+                    :class="satButtonGroupClass">
+                </button-group>
             </p>
             <planet-info :bodyInfo="selectedBody"></planet-info>
         </div>
@@ -36,8 +38,7 @@
 import _ from 'lodash'
 import ButtonGroup from './ButtonGroup'
 import PlanetInfo from './PlanetInfo'
-// const smallScreenThreshold = 512;
-var smallScreenThreshold = 512;
+const smallScreenThreshold = 512;
 
 export default {
     name: 'PlanetPicker',
@@ -53,6 +54,9 @@ export default {
         selectedPlanet: {
             type: Number,
             required: true
+        },
+        selectedSat: {
+            default: null
         }
     },
     data () {
@@ -78,6 +82,17 @@ export default {
         selectedBody: function () {
             return this.celBodies[this.selectedPlanet];
         },
+        selectedSatName: function () {
+            var satBody = this.selectedSatBody;
+            if (satBody) {
+                return satBody.name;
+            } else {
+                return null;
+            }
+        },
+        selectedSatBody: function () {
+            return this.selectedBody.satellites[this.selectedSat];
+        },
         buttonGroupClass: function () {
             return {
                 'btn-group-xs': this.isSmall,
@@ -99,13 +114,29 @@ export default {
         getIndexFromName: function (name) {
             return _.findIndex(this.celBodies, {name: name});
         },
+        getSatIndexFromName: function (name) {
+            return _.findIndex(this.selectedBody.satellites, {name: name});
+        },
         buttonClicked: function (name) {
             var selectedIndex = this.getIndexFromName(name);
             this.$emit('picked', {
                 name: name,
-                index: selectedIndex
+                index: selectedIndex,
+                satIndex: null
             });
-        }
+        },
+        satButtonClicked: function (name) {
+            var planetName = this.selectedBody.name;
+            var selectedSatIndex = this.getSatIndexFromName(name);
+            if (selectedSatIndex === this.selectedSat) {
+                selectedSatIndex = null;
+            }
+            this.$emit('picked', {
+                name: planetName,
+                index: this.selectedPlanet,
+                satIndex: selectedSatIndex
+            });
+        },
     }
 }
 </script>
