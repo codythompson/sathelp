@@ -83,14 +83,14 @@ export default {
             return this.celBodies[this.selectedPlanetIx];
         },
         selectedSatName: function () {
-            var satBody = this.selectedSatBody;
+            var satBody = this.selectedSat;
             if (satBody) {
                 return satBody.name;
             } else {
                 return null;
             }
         },
-        selectedSatBody: function () {
+        selectedSat: function () {
             return this.selectedPlanet.satellites[this.selectedSatIx];
         },
         buttonGroupClass: function () {
