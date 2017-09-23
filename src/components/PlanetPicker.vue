@@ -23,7 +23,7 @@
                     :class="satButtonGroupClass">
                 </button-group>
             </p>
-            <planet-info :bodyInfo="selectedBody"></planet-info>
+            <planet-info :bodyInfo="selectedPlanet"></planet-info>
         </div>
     </div>
 </template>
@@ -79,7 +79,7 @@ export default {
         selectedName: function () {
             return this.celBodies[this.selectedPlanetIx].name;
         },
-        selectedBody: function () {
+        selectedPlanet: function () {
             return this.celBodies[this.selectedPlanetIx];
         },
         selectedSatName: function () {
@@ -91,7 +91,7 @@ export default {
             }
         },
         selectedSatBody: function () {
-            return this.selectedBody.satellites[this.selectedSatIx];
+            return this.selectedPlanet.satellites[this.selectedSatIx];
         },
         buttonGroupClass: function () {
             return {
@@ -115,7 +115,7 @@ export default {
             return _.findIndex(this.celBodies, {name: name});
         },
         getSatIndexFromName: function (name) {
-            return _.findIndex(this.selectedBody.satellites, {name: name});
+            return _.findIndex(this.selectedPlanet.satellites, {name: name});
         },
         buttonClicked: function (name) {
             var selectedIndex = this.getIndexFromName(name);
@@ -126,7 +126,7 @@ export default {
             });
         },
         satButtonClicked: function (name) {
-            var planetName = this.selectedBody.name;
+            var planetName = this.selectedPlanet.name;
             var selectedSatIndex = this.getSatIndexFromName(name);
             if (selectedSatIndex === this.selectedSatIx) {
                 selectedSatIndex = null;
