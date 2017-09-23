@@ -55,7 +55,7 @@ export default {
             type: Number,
             required: true
         },
-        selectedSat: {
+        selectedSatIx: {
             default: null
         }
     },
@@ -91,7 +91,7 @@ export default {
             }
         },
         selectedSatBody: function () {
-            return this.selectedBody.satellites[this.selectedSat];
+            return this.selectedBody.satellites[this.selectedSatIx];
         },
         buttonGroupClass: function () {
             return {
@@ -128,7 +128,7 @@ export default {
         satButtonClicked: function (name) {
             var planetName = this.selectedBody.name;
             var selectedSatIndex = this.getSatIndexFromName(name);
-            if (selectedSatIndex === this.selectedSat) {
+            if (selectedSatIndex === this.selectedSatIx) {
                 selectedSatIndex = null;
             }
             this.$emit('picked', {

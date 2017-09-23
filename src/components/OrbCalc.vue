@@ -3,7 +3,7 @@
         <planet-picker
             :celBodies="celBodies"
             :selectedPlanetIx="planetIndex"
-            :selectedSat="satIndex"
+            :selectedSatIx="satIndex"
             v-on:picked="pickedPlanet">
         </planet-picker>
         <sat-const-params
