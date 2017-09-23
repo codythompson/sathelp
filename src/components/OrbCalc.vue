@@ -2,7 +2,7 @@
     <div class="orb-calc-comp">
         <planet-picker
             :celBodies="celBodies"
-            :selectedPlanet="planetIndex"
+            :selectedPlanetIx="planetIndex"
             :selectedSat="satIndex"
             v-on:picked="pickedPlanet">
         </planet-picker>

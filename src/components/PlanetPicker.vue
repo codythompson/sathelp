@@ -51,7 +51,7 @@ export default {
             type: Array,
             required: true
         },
-        selectedPlanet: {
+        selectedPlanetIx: {
             type: Number,
             required: true
         },
@@ -77,10 +77,10 @@ export default {
     },
     computed: {
         selectedName: function () {
-            return this.celBodies[this.selectedPlanet].name;
+            return this.celBodies[this.selectedPlanetIx].name;
         },
         selectedBody: function () {
-            return this.celBodies[this.selectedPlanet];
+            return this.celBodies[this.selectedPlanetIx];
         },
         selectedSatName: function () {
             var satBody = this.selectedSatBody;
@@ -133,7 +133,7 @@ export default {
             }
             this.$emit('picked', {
                 name: planetName,
-                index: this.selectedPlanet,
+                index: this.selectedPlanetIx,
                 satIndex: selectedSatIndex
             });
         },
