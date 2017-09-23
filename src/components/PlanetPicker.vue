@@ -4,16 +4,33 @@
             Orbital Body
         </div>
         <div class="panel-body">
+            <p>
             <button-group
                 :buttonLabels="celBodies"
                 :selected="selectedName"
                 v-on:selected="buttonClicked"
                 :class="buttonGroupClass">
             </button-group>
+            </p>
+            <p>
+            <button-group
+                v-for="body in celBodies"
+                v-bind:key="body.name"
+                v-show="selectedName == body.name"
+                :buttonLabels="body.satellites"
+                :class="satButtonGroupClass">
+            </button-group>
+            </p>
             <planet-info :bodyInfo="selectedBody"></planet-info>
         </div>
     </div>
 </template>
+
+<style>
+.sat-group {
+    clear: both;
+}
+</style>
 
 <script>
 import _ from 'lodash'
@@ -61,13 +78,17 @@ export default {
         selectedBody: function () {
             return this.celBodies[this.selectedPlanet];
         },
-        /* 
-         * not triggered on resize :`(
-         */
         buttonGroupClass: function () {
             return {
                 'btn-group-xs': this.isSmall,
                 'btn-group-sm': !this.isSmall
+            };
+        },
+        satButtonGroupClass: function () {
+            return {
+                'btn-group-xs': this.isSmall,
+                'btn-group-sm': !this.isSmall,
+                'sat-group': true
             };
         }
     },

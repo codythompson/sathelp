@@ -15,10 +15,7 @@
 export default {
     name: 'ButtonGroup',
     props: {
-        'selected': {
-            type: String,
-            required: true
-        },
+        'selected': String,
         'buttonLabels': {
             type: Array,
             required: true

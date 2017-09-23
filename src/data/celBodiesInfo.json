@@ -3,39 +3,48 @@
         {
             "name": "moho",
             "label": "Moho",
-            "satellites": {}
+            "satellites": []
         },
         {
             "name": "eve",
             "label": "Eve",
-            "satellites": {}
+            "satellites": []
         },
         {
             "name": "kerbin",
             "label": "Kerbin",
             "radius": 600000,
             "grav_sea_level": 9.8,
-            "satellites": {}
+            "satellites": [
+                {
+                    "name": "mun",
+                    "label": "Mun"
+                },
+                {
+                    "name": "minmus",
+                    "label": "MinMus"
+                }
+            ]
         },
         {
             "name": "duna",
             "label": "Duna",
-            "satellites": {}
+            "satellites": []
         },
         {
             "name": "dres",
             "label": "Dres",
-            "satellites": {}
+            "satellites": []
         },
         {
             "name": "jool",
             "label": "Jool",
-            "satellites": {}
+            "satellites": []
         },
         {
             "name": "eeloo",
             "label": "Eeloo",
-            "satellites": {}
+            "satellites": []
         }
     ]
 }
