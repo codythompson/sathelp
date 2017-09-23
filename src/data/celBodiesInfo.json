@@ -12,7 +12,14 @@
             "label": "Eve",
             "radius": 700000,
             "grav_sea_level": 16.7,
-            "satellites": []
+            "satellites": [
+                {
+                    "name": "gilly",
+                    "label": "Gilly",
+                    "radius": 13000,
+                    "grav_sea_level": 0.049
+                }
+            ]
         },
         {
             "name": "kerbin",
@@ -39,7 +46,14 @@
             "label": "Duna",
             "radius": 320000,
             "grav_sea_level": 2.94,
-            "satellites": []
+            "satellites": [
+                {
+                    "name": "ike",
+                    "label": "Ike",
+                    "radius": 130000,
+                    "grav_sea_level": 1.1
+                }
+            ]
         },
         {
             "name": "dres",
@@ -53,7 +67,38 @@
             "label": "Jool",
             "radius": 6000000,
             "grav_sea_level": 7.85,
-            "satellites": []
+            "satellites": [
+                {
+                    "name": "laythe",
+                    "label": "Laythe",
+                    "radius": 500000,
+                    "grav_sea_level": 7.85
+                },
+                {
+                    "name": "vall",
+                    "label": "Vall",
+                    "radius": 300000,
+                    "grav_sea_level": 2.31
+                },
+                {
+                    "name": "tylo",
+                    "label": "Tylo",
+                    "radius": 600000,
+                    "grav_sea_level": 7.85
+                },
+                {
+                    "name": "bop",
+                    "label": "Bop",
+                    "radius": 65000,
+                    "grav_sea_level": 0.589
+                },
+                {
+                    "name": "pol",
+                    "label": "Pol",
+                    "radius": 44000,
+                    "grav_sea_level": 0.373
+                }
+            ]
         },
         {
             "name": "eeloo",
