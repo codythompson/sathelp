@@ -77,7 +77,7 @@ export default {
     },
     computed: {
         selectedPlanetName: function () {
-            return this.celBodies[this.selectedPlanetIx].name;
+            return this.selectedPlanet.name;
         },
         selectedPlanet: function () {
             return this.celBodies[this.selectedPlanetIx];
@@ -126,7 +126,7 @@ export default {
             });
         },
         satButtonClicked: function (name) {
-            var planetName = this.selectedPlanet.name;
+            var planetName = this.selectedPlanetName;
             var selectedSatIndex = this.getSatIndexFromName(name);
             if (selectedSatIndex === this.selectedSatIx) {
                 selectedSatIndex = null;
