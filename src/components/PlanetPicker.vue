@@ -23,7 +23,7 @@
                     :class="satButtonGroupClass">
                 </button-group>
             </p>
-            <planet-info :bodyInfo="selectedPlanet"></planet-info>
+            <planet-info :bodyInfo="selectedBody"></planet-info>
         </div>
     </div>
 </template>
@@ -92,6 +92,13 @@ export default {
         },
         selectedSat: function () {
             return this.selectedPlanet.satellites[this.selectedSatIx];
+        },
+        selectedBody: function () {
+            if (this.selectedSat) {
+                return this.selectedSat;
+            } else {
+                return this.selectedPlanet;
+            }
         },
         buttonGroupClass: function () {
             return {
