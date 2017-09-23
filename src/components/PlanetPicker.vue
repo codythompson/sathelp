@@ -7,7 +7,7 @@
             <p>
                 <button-group
                     :buttonLabels="celBodies"
-                    :selected="selectedName"
+                    :selected="selectedPlanetName"
                     v-on:selected="buttonClicked"
                     :class="buttonGroupClass">
                 </button-group>
@@ -17,7 +17,7 @@
                     v-for="body in celBodies"
                     :selected="selectedSatName"
                     v-bind:key="body.name"
-                    v-show="selectedName == body.name"
+                    v-show="selectedPlanetName == body.name"
                     v-on:selected="satButtonClicked"
                     :buttonLabels="body.satellites"
                     :class="satButtonGroupClass">
@@ -76,7 +76,7 @@ export default {
         this.isMounted = true;
     },
     computed: {
-        selectedName: function () {
+        selectedPlanetName: function () {
             return this.celBodies[this.selectedPlanetIx].name;
         },
         selectedPlanet: function () {
