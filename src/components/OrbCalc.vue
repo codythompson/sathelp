@@ -57,13 +57,30 @@ export default {
         planetName: function () {
             return this.planet.name;
         },
+        sat: function () {
+            var sat = this.planet.satellites[this.satIndex];
+            if (sat) {
+                return sat;
+            } else {
+                return null;
+            }
+        },
+        body: function () {
+            var val;
+            if (this.sat) {
+                val = this.sat;
+            } else {
+                val = this.planet;
+            }
+            return val;
+        },
         apoapsis: function () {
-            var planet = this.planet;
+            var body = this.body;
             var apoapsis = ocutil.apogeeEquidistantTransferOrbit(
                 this.appState.orbAlt,
                 this.appState.satCount,
-                planet.radius,
-                planet.grav_sea_level
+                body.radius,
+                body.grav_sea_level
             );
             apoapsis = parseInt(Math.round(apoapsis));
 
