@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import DistanceFormatter from '../DistanceFormatter'
+
 import ButtonGroup from './ButtonGroup'
 
 // TODO make a unit converter
@@ -31,11 +33,14 @@ export default {
     props: {
         bodyInfo: Object,
         initialUnits: {
-            default: 'm',
+            default: DistanceFormatter.UnitKeys.Meters,
             validator: function (val) {
-                return val === 'm' || val === 'km';
+                return val in DistanceFormatter.UnitInfo;
             }
         },
+        // initialUnits: {
+        //     default: 'm'
+        // },
         accelDecimalPlaces: {
             type: Number,
             default: 5
@@ -43,14 +48,16 @@ export default {
     },
     data: function () {
         return {
-            units: this.initialUnits,
-            unitLabels: [
-                {name: 'm', label: 'm'},
-                {name: 'km', label: 'km'}
-            ]
+            unitLabels: DistanceFormatter.ButtonGroupLabels,
+            distFormatter: new DistanceFormatter({
+                units: this.initialUnits
+            })
         };
     },
     computed: {
+        units: function () {
+            return this.distFormatter.units;
+        },
         radius: function () {
             var rad = this.bodyInfo.radius;
 
@@ -58,7 +65,7 @@ export default {
                 return '?';
             }
 
-            return this.getVal(rad);
+            return this.distFormatter.format(rad);
         },
         gravAccel: function () {
             var accel = this.bodyInfo.grav_sea_level;
@@ -67,32 +74,12 @@ export default {
                 return '?';
             }
 
-            return this.getVal(accel);
+            return this.distFormatter.format(accel);
         }
     },
     methods: {
         setUnits: function (units) {
-            this.units = units;
-        },
-        getVal: function (valInMeters) {
-            var val;
-            if (this.units === 'km') {
-                val = valInMeters/1000;
-            } else {
-                val = valInMeters;
-            }
-            val = this.round(val, this.accelDecimalPlaces);
-            return val;
-        },
-        round: function (val, places) {
-            val *= Math.pow(10, places);
-            val = parseInt(Math.round(val));
-
-            // this might result in precision errors
-            // precision errors kind of make this method pointless
-            val /= Math.pow(10, places);
-
-            return val;
+            this.distFormatter.units = units;
         }
     }
 }
