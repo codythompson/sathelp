@@ -9,6 +9,9 @@
           <orb-viewer></orb-viewer>
         </div>
       </div>
+      <div class="row">
+        <app-footer></app-footer>
+      </div>
     </div>
   </div>
 </template>
@@ -16,6 +19,7 @@
 <script>
 import OrbCalc from './components/OrbCalc'
 import OrbViewer from './components/OrbViewer'
+import AppFooter from './components/AppFooter'
 import AppState from './appstate'
 
 // exposing globally for debug purposes only
@@ -25,7 +29,8 @@ export default {
   name: 'app',
   components: {
     OrbCalc,
-    OrbViewer
+    OrbViewer,
+    AppFooter
   },
   data: function () {
     return {
