@@ -13,7 +13,7 @@ var celBodyInfo = require('./data/celBodiesInfo.json');
 
 // TODO callbacks or something to handle async set ops
 var AppState = {
-    debug: true,
+    debug: false,
     state: {
         version: '0.0.1',
         celBodyInfo: celBodyInfo,
