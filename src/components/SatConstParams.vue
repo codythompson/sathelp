@@ -24,7 +24,7 @@
         </div>
     </div>
 </template>
-<style scopes>
+<style scoped>
 /*
  * might need more precise sizing
 */
