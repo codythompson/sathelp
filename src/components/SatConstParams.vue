@@ -38,6 +38,8 @@ span.form-control-units-label {
 }
 </style>
 <script>
+import DistanceFormatter from '../DistanceFormatter'
+
 import ButtonGroup from './ButtonGroup'
 
 export default {
@@ -45,9 +47,9 @@ export default {
     components: {ButtonGroup},
     props: {
         initialUnits: {
-            default: 'm',
+            default: DistanceFormatter.UnitKeys.Meters,
             validator: function (val) {
-                return val === 'm' || val === 'km';
+                return val in DistanceFormatter.UnitInfo;
             }
         },
         orbAlt: {
@@ -61,35 +63,26 @@ export default {
     },
     data() {
         return {
-            units: this.initialUnits,
-            unitLabels: [
-                {name: 'm', label: 'm'},
-                {name: 'km', label: 'km'}
-            ]
+            unitLabels: DistanceFormatter.ButtonGroupLabels,
+            distFormatter: new DistanceFormatter({
+                units: this.initialUnits
+            })
         };
     },
     computed: {
+        units: function () {
+            return this.distFormatter.units;
+        },
         formattedOrbAlt: function () {
-            var val = this.orbAlt;
-            if (this.units === 'km') {
-                val /= 1000;
-            }
-            return val;
+            return this.distFormatter.format(this.orbAlt);
         }
     },
     methods: {
         setUnits: function (units) {
-            this.units = units;
-        },
-        getOrbAlt: function (formVal) {
-            var val = Number(formVal.trim());
-            if (this.units === 'km') {
-                val *= 1000;
-            }
-            return val;
+            this.distFormatter.units = units;
         },
         orbAltInput: function (e) {
-            var val = this.getOrbAlt(e.target.value);
+            var val = this.distFormatter.parse(e.target.value);
             // TODO VALIDATION!!!
             this.$emit('param-change', {
                 field: 'orbAlt',

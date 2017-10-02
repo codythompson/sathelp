@@ -9,7 +9,7 @@ var unitInfo = {
     },
     km: {
         name: 'Kilometers',
-        factor: 1/1000
+        factor: 1000
     }
 };
 
@@ -44,11 +44,21 @@ var DistanceFormatter = class {
 
     format (meters) {
         var factor = unitInfo[this.units].factor;
-        var formatted = meters * factor;
+        var formatted = meters * (1/factor);
         if (this.roundOffPrecisionErrors) {
             formatted = this.roundOff(formatted);
         }
         return formatted+'';
+    }
+
+    parse (distance) {
+        distance = Number(distance.trim());
+        var factor = unitInfo[this.units].factor;
+        var parsed = distance * factor;
+        if (this.roundOffPrecisionErrors) {
+            parsed = this.roundOff(parsed);
+        }
+        return parsed;
     }
 };
 
