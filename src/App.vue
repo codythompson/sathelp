@@ -11,7 +11,7 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <app-footer></app-footer>
+          <app-footer :version="appState.version"></app-footer>
         </div>
       </div>
     </div>

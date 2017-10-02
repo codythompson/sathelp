@@ -15,6 +15,7 @@ var celBodyInfo = require('./data/celBodiesInfo.json');
 var AppState = {
     debug: true,
     state: {
+        version: '0.0.1',
         celBodyInfo: celBodyInfo,
         selectedPlanetIx: 2,
         selectedSatIx: null,
@@ -33,6 +34,12 @@ var AppState = {
             return {
                 invalid: true,
                 message: 'celBodyInfo is a readonly field'
+            };
+        },
+        version: function (newVal) {
+            return {
+                invalid: true,
+                message: 'version is a readonly field'
             };
         }
     },

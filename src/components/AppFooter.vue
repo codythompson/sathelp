@@ -2,7 +2,7 @@
     <div class="app-footer-comp panel panel-default">
         <div class="panel-body row">
             <div class="col-xs-6 col-sm-4">
-                version 0.0.0
+                version {{version}}
             </div>
             <div class="footer-center col-xs-6 col-sm-4">
                 copyright &copy; 2017 Cody Thompson 
@@ -25,6 +25,12 @@
 
 <script>
 export default {
-    name: 'AppFooter'
+    name: 'AppFooter',
+    props: {
+        version: {
+            type: String,
+            required: true
+        }
+    }
 }
 </script>
