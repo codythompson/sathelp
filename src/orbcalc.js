@@ -75,6 +75,7 @@ var apogeeEquidistantTransferOrbit = function (desiredAltitude, numberOfSatellit
   return apog;
 };
 
+// module.exports = { // TODO figure out can't do module.exports
 export default {
   velocityFromAltitude: velocityFromAltitude,
   periodFromAltitude: periodFromAltitude,
