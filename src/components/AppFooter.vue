@@ -2,18 +2,26 @@
     <div class="app-footer-comp panel panel-default">
         <div class="panel-body row">
             <div class="col-xs-6 col-sm-4">
-                <p>
-                    version 0.0.0
-                </P>
+                version 0.0.0
             </div>
-            <div class="col-xs-6 col-sm-4">
-                <p>
-                   copyright &copy; 2017 Cody Thompson 
-                </P>
+            <div class="footer-center col-xs-6 col-sm-4">
+                copyright &copy; 2017 Cody Thompson 
             </div>
         </div>
     </div>
 </template>
+
+<style scoped>
+
+.app-footer-comp .footer-center {
+    text-align: right;
+}
+@media (min-width: 768px) {
+    .app-footer-comp .footer-center {
+        text-align: center;
+    }
+}
+</style>
 
 <script>
 export default {

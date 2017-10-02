@@ -10,7 +10,9 @@
         </div>
       </div>
       <div class="row">
-        <app-footer></app-footer>
+        <div class="col-xs-12">
+          <app-footer></app-footer>
+        </div>
       </div>
     </div>
   </div>
