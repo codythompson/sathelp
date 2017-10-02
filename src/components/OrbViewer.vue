@@ -10,7 +10,7 @@
                 <p v-show="hasErrorMessage" class="message">{{errorMessage}}</p>
                 <p v-show="hasErrorMessage" class="text">{{errorText}}</p>
             </div>
-            <canvas class="canvas" ref="canvas"></canvas>
+            <canvas v-show="!isError" class="canvas" ref="canvas"></canvas>
         </div>
     </div>
 </template>
@@ -75,6 +75,9 @@ export default {
             return this.state === state;
         },
         resize: function () {
+            // short circuiting this for now
+            return;
+
             // we don't need to do this if we aren't mounted yet
             if (!this.isMounted || this.state === this.states.error) {
                 return;
@@ -89,6 +92,11 @@ export default {
         },
     },
     mounted: function () {
+        this.state = this.states.error;
+        this.errorMessage = 'feature under construction';
+        // short circuiting this for now
+        return;
+
         this.isMounted = true;
         var canvas = this.$refs.canvas;
         var gl = canvas.getContext('webgl');
